@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星辰壁纸工作台 3.0 · 安卓AI景深锁屏工坊</title>
+<style>
+:root{color-scheme:dark;--bg:#0e111d;--panel:#171b2c;--panel2:#1e2437;--border:#34384c;--text:#f2f4ff;--muted:#abb2cd;--accent:#9d92ff;--accent2:#6ce9e4;--good:#64d4b6}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 60% -20%,#292651 0,#0e111d 45%);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Microsoft YaHei",Arial,sans-serif;color:var(--text);min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:wait;opacity:.6}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+header{height:76px;display:flex;align-items:center;gap:14px;padding:0 28px;border-bottom:1px solid #ffffff14;background:#101324a8;backdrop-filter:blur(16px)}
+.logo{width:40px;height:40px;display:grid;place-items:center;font-size:22px;border:1px solid #d4c8ff4f;border-radius:13px;background:linear-gradient(145deg,#5847a7,#252c53)}.brand{font-size:20px;font-weight:760;letter-spacing:.8px}.brand small{display:block;font-size:10px;color:var(--muted);font-weight:550;letter-spacing:1.9px;margin-top:2px}
+.pill{font-size:12px;color:#bcb7fc;padding:7px 12px;border:1px solid #746caa70;border-radius:100px;margin-left:auto}.shell{display:grid;grid-template-columns:minmax(320px,390px) minmax(330px,1fr) minmax(220px,280px);gap:20px;max-width:1660px;margin:auto;padding:22px}
+.panel{background:#161b2bde;border:1px solid #ffffff16;box-shadow:0 18px 55px #0305112d;border-radius:20px;min-width:0;overflow:hidden}.left{padding:20px}.mid{padding:18px;display:flex;flex-direction:column;gap:13px;align-items:center}.right{padding:18px;display:flex;flex-direction:column;gap:14px}.section{padding-bottom:20px;margin-bottom:19px;border-bottom:1px solid #ffffff16}.section:last-child{padding-bottom:0;margin-bottom:0;border:0}
+.h2{font-size:14px;font-weight:750;margin:0 0 12px;display:flex;align-items:center;justify-content:space-between}.hint{font-size:12px;color:var(--muted);line-height:1.6}.help{font-size:11px;color:#9ea8c7;margin-top:8px;line-height:1.6}strong{color:white}
+.drop{border:1.5px dashed #8680d1;border-radius:14px;background:linear-gradient(145deg,#28234585,#181f3285);padding:18px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;transition:.2s}.drop.over{background:#49447680;border-color:white}.drop b{font-size:14px}.drop .big{font-size:30px}.drop small{font-size:11px;color:#b4bbd4}.drop button{padding:7px 14px}
+button.primary{border:1px solid #ad9fff80;background:linear-gradient(135deg,#9a85fa,#6555d0);color:white;font-weight:700;border-radius:11px;padding:11px 14px;box-shadow:0 4px 16px #7765e33d}button.secondary{border:1px solid #ffffff30;background:#222940;color:#e8eafa;border-radius:10px;padding:9px 12px}button.ghost{background:transparent;color:#c0c6df;border:1px solid #424a65;border-radius:9px;padding:7px 10px}button.tiny{font-size:12px;padding:6px 8px}
+.field{display:grid;gap:7px;margin:13px 0}.field>label{font-size:12px;color:#bfc6db;display:flex;justify-content:space-between;gap:12px}.field>label output{color:var(--accent2);font-variant-numeric:tabular-nums}input[type=text],input[type=time],input[type=date],input[type=number],select,input[type=color]{width:100%;min-height:37px;border-radius:9px;padding:8px 10px;border:1px solid #444960;background:#22283b;color:white;font-size:13px}input[type=color]{padding:4px;max-width:56px;min-height:35px}input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:9px}.segment{display:flex;gap:5px;background:#101524;padding:5px;border-radius:11px}.segment button{flex:1;padding:9px 5px;border:none;border-radius:8px;background:transparent;color:#aab4ce;font-size:12px}.segment button.active{background:#393558;color:white;box-shadow:inset 0 0 0 1px #8980d04a}
+.switchline{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 0;color:#d9ddef;font-size:12px}.switchline input{accent-color:var(--accent);width:16px;height:16px}
+.previewTitle{display:flex;align-items:center;justify-content:space-between;width:100%;gap:8px}.previewTitle b{font-size:14px}.previewTitle span{font-size:12px;color:#a6aec9}.canvaswrap{position:relative;width:min(100%,390px);margin:auto;max-height:calc(100vh - 165px);aspect-ratio:9/16;box-shadow:0 12px 40px #0008;border-radius:14px;overflow:hidden;border:1px solid #ffffff32;background:#161a2b;touch-action:none}.canvaswrap canvas{width:100%;height:100%;display:block;touch-action:none}.canvaswrap.paint{cursor:crosshair;outline:2px solid #78ebda;outline-offset:3px}
+.watermark{position:absolute;bottom:8px;left:8px;background:#070c18a3;font-size:10px;color:#d8def3;padding:4px 7px;border-radius:6px;pointer-events:none}.previewFoot{width:100%;text-align:center;font-size:11px;color:#8893ae;line-height:1.6}
+.maskActions{display:grid;gap:8px}.notice{font-size:12px;background:#22283c;border:1px solid #53617a70;border-radius:12px;padding:10px 12px;line-height:1.75;color:#c6d5e8}.notice b{color:#a6f5e5}.list{display:flex;flex-direction:column;gap:8px;max-height:50vh;overflow:auto;padding-right:3px}
+.photo{display:flex;align-items:center;gap:9px;padding:8px;border:1px solid #3d4257;border-radius:11px;cursor:pointer;background:#1b2232}.photo.active{border-color:#b1a5ff;background:#332d50}.photo img{width:49px;height:67px;object-fit:cover;border-radius:6px;background:#394054}.photo .info{min-width:0;flex:1}.photo .name{font-size:12px;font-weight:650;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.photo .meta{font-size:11px;color:#a4aec7;margin-top:6px}.photo .kill{color:#aaaec8;border:none;background:transparent;font-size:18px;padding:4px}.photo .kill:hover{color:#ff8d9b}
+.stat{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#b8c1db}.progress{height:6px;overflow:hidden;border-radius:12px;background:#373b50}.bar{height:100%;width:0;background:linear-gradient(90deg,#8476e3,#74ebe0);transition:width .15s}.exportButtons{display:grid;grid-template-columns:1fr 1fr;gap:9px}.exportButtons button{line-height:1.4;min-height:43px}.bottomNote{padding:15px 20px 25px;max-width:1600px;margin:auto;color:#8f9ab8;font-size:12px;line-height:1.6}.muted{color:#a9b3d0}.aiInfo{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:10px 0}.aiInfo .tag{font-size:11px;background:#222943;border:1px solid #4c5474;padding:5px 9px;border-radius:20px}.aiInfo .tag.ok{color:#80efd2;border-color:#3e9d87}.aiInfo .tag.bad{color:#ffd1a0;border-color:#a97b50}.aiButtons{display:grid;grid-template-columns:1fr 1fr;gap:8px}.aiButtons button{font-size:12px}.aiSmall{color:#acbddc;font-size:11px;line-height:1.7;margin:8px 0}.badge{background:#393355;color:#cdc5ff;border-radius:5px;padding:3px 5px;font-size:10px;white-space:nowrap}
+@media(max-width:1170px){.shell{grid-template-columns:minmax(280px,370px) minmax(320px,1fr)}.right{grid-column:1 / -1}.right .list{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));max-height:230px}.canvaswrap{max-height:calc(100vh - 180px)}}
+@media(max-width:750px){header{padding:0 14px;height:66px}.brand{font-size:16px}.pill{font-size:10px}.shell{display:flex;flex-direction:column;padding:11px;gap:12px}.left{order:1}.mid{order:2;padding:13px}.right{order:3}.canvaswrap{width:min(100%,335px);max-height:none}.right .list{display:grid;grid-template-columns:1fr 1fr;max-height:none}.photo img{width:40px;height:55px}.photo .name{font-size:11px}.photo .meta{font-size:10px}.bottomNote{padding:5px 18px 25px}}
+
+/* Android 3.0 手机优先交互 */
+:root{--accent:#9487ff}html{scroll-behavior:smooth}body{padding-bottom:env(safe-area-inset-bottom, 0px)}
+.mobileDock{display:none}button{touch-action:manipulation}
+@media(max-width:750px){
+body{padding-bottom:calc(82px + env(safe-area-inset-bottom,0px))}
+header{position:sticky;top:0;z-index:5;background:#101324f2;backdrop-filter:blur(24px)}
+header .pill{display:none}header .brand{font-size:15px}
+.shell{display:flex;flex-direction:column;padding:10px;gap:10px}
+.left{order:2;padding:16px}.mid{order:1;gap:8px}.right{order:3}
+.canvaswrap{width:min(100%,310px);max-height:58vh} .previewFoot{font-size:10px}
+.photo{min-height:82px}.right .list{max-height:none}
+.mobileDock{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);background:#161a2cf7;padding:9px 6px calc(9px + env(safe-area-inset-bottom,0px));z-index:20;border-top:1px solid #ffffff25;box-shadow:0 -8px 35px #05061270}
+.mobileDock button{background:transparent;border:0;color:#d9dbee;display:grid;gap:4px;justify-items:center;font-size:10px;padding:5px 1px}.mobileDock button b{font-size:18px;color:#c8c3ff}
+.aiButtons{grid-template-columns:1fr 1fr}.aiButtons button{padding:12px 6px;min-height:43px}
+.previewTitle{font-size:12px}.bottomNote{line-height:1.6}
+}
+</style>
+</head>
+<body>
+<header><div class="logo">✦</div><div class="brand">星辰壁纸工作台 3.0<small>LOCKSCREEN WALLPAPER STUDIO</small></div><div class="pill">安卓本地AI · 自动抠图</div></header>
+<main class="shell">
+ <section class="panel left">
+  <div class="section">
+   <div class="h2">① 导入图片素材 <span class="badge" id="totalBadge">0 张</span></div>
+   <div class="drop" id="dropArea"><span class="big">✧</span><b>拖入图片，或一次选择多张</b><small>支持 JPG / PNG / WebP · 本地处理，不上传服务器</small><button class="primary" id="addPhotos">＋ 导入原图</button></div>
+   <input type="file" id="fileInput" accept="image/*" multiple hidden>
+  </div>
+  <div class="section">
+   <div class="h2">② 选择时间版式</div>
+   <div class="segment" id="layouts"><button data-layout="single" class="active">大数字横排</button><button data-layout="double">上下双行</button><button data-layout="edge">边缘巨字</button></div>
+   <div class="field"><label>整体主题</label><select id="theme"><option value="pearl">柔光白 · 日系通透</option><option value="silver">月光银 · 深夜动漫</option><option value="warm">落日金 · 暖色氛围</option><option value="pink">樱花粉 · 梦幻柔和</option><option value="cyan">冰蓝 · 清冷感</option></select></div>
+   <div class="twocol">
+    <div class="field"><label>时间生成方式</label><select id="timeMode"><option value="fixed">所有图片固定</option><option value="random">每张随机</option><option value="step">按图片递增</option></select></div>
+    <div class="field"><label>起始时间</label><input id="clockTime" type="time" value="09:02"></div>
+   </div>
+   <div class="field"><label>日期（自动计算星期）</label><input type="date" id="dateInput"></div>
+   <div class="field"><label>时钟大小 <output id="sizeValue">100%</output></label><input id="clockSize" type="range" min="65" max="140" value="100"></div>
+   <div class="field"><label>时钟垂直位置 <output id="positionValue">35%</output></label><input id="clockY" type="range" min="12" max="77" value="35"></div>
+   <div class="field"><label>数字透明度 <output id="opacityValue">73%</output></label><input id="opacity" type="range" min="15" max="100" value="73"></div>
+   <div class="twocol">
+    <div class="field"><label>额外色调</label><input id="color" type="color" value="#f8f6ff" title="手动改颜色"></div>
+    <div class="field"><label>时钟形状</label><select id="font"><option value="narrow">窄体无衬线</option><option value="serif">优雅细衬线</option><option value="bold">清晰加粗</option></select></div>
+   </div>
+   <div class="switchline"><span>显示日期 / 星期</span><input id="showDate" type="checkbox" checked></div>
+   <div class="switchline"><span>显示天气小组件（装饰信息）</span><input id="showWidgets" type="checkbox" checked></div>
+   <div class="field" id="weatherField"><label>天气温度（仅作静态文字）</label><input type="text" id="weather" value="26°" maxlength="8"></div>
+  </div>
+  <div class="section">
+   <div class="h2">③ AI人物识别与景深</div>
+   <div class="notice"><b>一键自动抠图：</b>先导入原图，再点击下面的 AI 按钮。首次使用会下载约 176MB 动漫分割模型；之后可以离线反复使用。原图无需上传云端。</div>
+   <div class="aiInfo"><span class="tag" id="aiStatus">检查手机本地AI…</span><button id="aiCheck" class="ghost tiny">检测模型</button></div>
+   <div class="aiButtons"><button class="secondary" id="modelDownload">↓ 首次下载模型</button><button class="secondary" id="modelImport">↑ 从手机导入ONNX</button></div>
+   <div class="aiSmall" id="modelHelp">模型约 176MB，下载一次以后在手机本地保存；需要联网的只有模型下载。手动下载请使用原作者或 rembg 发布的 isnet-anime.onnx 模型。</div>
+   <div class="aiButtons"><button class="secondary" id="aiOne">✦ AI抠当前图</button><button class="primary" id="aiAll">✦ AI批量抠图</button></div>
+   <div class="aiInfo"><button class="ghost tiny" id="aiCancel" disabled>停止当前批量任务</button><span class="muted" style="font-size:11px" id="aiProgress">等待开始</span></div>
+   <div class="aiSmall">AI 在手机本地运行。首次使用先下载或导入 isnet-anime.onnx 模型，之后可离线抠图。模型不随安装包分发。</div>
+   <div class="field"><label>数字被人物遮挡的方式</label><select id="depth"><option value="auto">自动景深（使用 AI 前景）</option><option value="none">普通叠字（不遮挡）</option><option value="front">导入透明前景 PNG</option><option value="paint">涂抹前景区域（手动景深）</option></select></div>
+   <div id="frontPanel" style="display:none">
+     <button class="secondary" id="addForegrounds">＋ 批量导入前景 PNG</button>
+     <input type="file" id="frontInput" accept="image/png,image/webp" multiple hidden>
+     <div class="help">也支持人工导入透明 PNG，用于替换 AI 抠图不准确的部分。前景图需透明背景，<strong>尺寸与原图一致</strong>、人物位置对齐。文件名可与原图相同，或加 _前景 / _fg。工具按文件名自动配对。</div>
+     <div class="stat" style="margin-top:9px"><span>已匹配前景</span><span id="frontCount">0 / 0</span></div>
+   </div>
+   <div id="paintPanel" style="display:none" class="maskActions">
+     <div class="notice">用手指或鼠标在预览图上<strong>涂抹人物需要挡住数字的部位</strong>（例如头发、肩膀）。遮挡区域按每张图单独保存。</div>
+     <div class="field"><label>笔刷粗细 <output id="brushValue">45</output></label><input id="brushSize" type="range" min="8" max="160" value="45"></div>
+     <div class="twocol"><button class="secondary" id="eraseBtn">橡皮擦：关</button><button class="ghost" id="clearMask">清除此图涂抹</button></div>
+     <button class="ghost" id="copyMask">将本图涂抹复制给所有图</button>
+     <div class="help">精细头发边缘推荐导入已抠好的透明前景 PNG；涂抹方式更适合少量图片，批量复用仅适用于人物位置接近的素材。</div>
+   </div>
+  </div>
+ </section>
+ <section class="panel mid">
+  <div class="previewTitle"><b>实时预览</b><span id="previewLabel">演示样式 · 待导入素材</span></div>
+  <div class="canvaswrap" id="canvasWrap"><canvas id="preview" width="540" height="960"></canvas><div class="watermark" id="paintWatermark" style="display:none">🖌 涂抹人物遮挡区域</div></div>
+  <div class="previewFoot">实际导出为完整高清壁纸 · 此预览仅用于排版，不包含截图里的社交软件界面</div>
+  <div class="notice" style="width:100%"><b>手机AI景深：</b>下载模型并完成 AI 抠图后，人物会自动遮挡数字。如果识别有误，也可导入透明PNG或用手指修正遮挡范围。</div>
+ </section>
+ <section class="panel right">
+  <div class="h2">④ 批量素材队列 <span id="countText" class="muted">0 张</span></div>
+  <div id="list" class="list"><div class="notice">尚未导入图片。导入图片后，点击任意缩略图即可预览，还可以单独制作人物遮挡区域。</div></div>
+  <div class="section" style="padding-top:6px;margin-top:auto">
+   <div class="h2">⑤ 导出设置</div>
+   <div class="field"><label>输出分辨率</label><select id="resolution"><option value="1080x1920">1080 × 1920 · 标准高清</option><option value="1440x2560">1440 × 2560 · 2K</option><option value="2160x3840">2160 × 3840 · 4K</option><option value="720x1280">720 × 1280 · 快速测试</option></select></div>
+   <div class="field"><label>图片格式</label><select id="outputType"><option value="image/jpeg">JPG · 体积小（推荐）</option><option value="image/png">PNG · 无损画质（体积大）</option></select></div>
+   <div class="exportButtons"><button class="secondary" id="downloadOne">↓ 导出当前图</button><button class="primary" id="downloadAll">↓ 批量 ZIP</button></div>
+   <div class="progress" style="margin-top:12px"><div id="progressBar" class="bar"></div></div>
+   <div class="stat" style="margin-top:8px"><span id="status">等待素材</span><span id="statusCount">0 / 0</span></div>
+   <div class="help">仅在本机处理图片。不添加网站水印。4K + PNG + 大批量素材可能占用较多内存，建议先用 JPG 测试。</div>
+  </div>
+  <button class="ghost" id="clearAll" style="margin-top:auto">清空全部图片</button>
+ </section>
+</main>
+<nav class="mobileDock" aria-label="手机快捷操作">
+<button id="dockImport" type="button"><b>＋</b>导入</button><button id="dockPreview" type="button"><b>◉</b>预览</button><button id="dockStyle" type="button"><b>◷</b>时钟</button><button id="dockAI" type="button"><b>✦</b>AI</button><button id="dockExport" type="button"><b>⇩</b>导出</button>
+</nav><div class="bottomNote">星辰壁纸工作台 3.0 · Android 本地 AI 版。原图在手机本机处理，不上传图片。首次使用需要下载或导入模型。AI 识别效果受构图影响。静态图片中的时钟不会实时变化；请确保拥有素材使用权。</div>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id), app={photos:[],active:0,layout:'single',busy:false,aiBusy:false,aiCancel:false,aiController:null,paintErase:false,painting:false,lastPoint:null,previewPending:false};
+const el={canvas:$('preview'),wrapper:$('canvasWrap')}; const ct=el.canvas.getContext('2d',{alpha:false});
+const themeColors={pearl:'#f8f6ff',silver:'#d4d4ea',warm:'#ffe7b4',pink:'#ffe1eb',cyan:'#c7f5ff'};
+const controls=['theme','timeMode','clockTime','dateInput','clockSize','clockY','opacity','color','font','showDate','showWidgets','weather','depth','brushSize','resolution','outputType'];
+const today=new Date(); $('dateInput').value=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+const opts=()=>({layout:app.layout,theme:$('theme').value,timeMode:$('timeMode').value,time:$('clockTime').value,date:$('dateInput').value,size:+$('clockSize').value/100,y:+$('clockY').value/100,opacity:+$('opacity').value/100,color:$('color').value,font:$('font').value,showDate:$('showDate').checked,showWidgets:$('showWidgets').checked,weather:$('weather').value,depth:$('depth').value});
+function schedule(){if(app.previewPending)return;app.previewPending=true;requestAnimationFrame(()=>{app.previewPending=false;render(el.canvas,app.photos[app.active],app.active,true);});}
+function imageName(s){return s.replace(/\.[^.]+$/,'').replace(/(?:[-_\s]*(?:前景|抠图|fg|foreground|front|cutout|mask))$/i,'').trim().toLowerCase()}
+function bytesLabel(n){return n<1024*1024?Math.round(n/1024)+'KB':(n/1024/1024).toFixed(1)+'MB'}
+function getCover(img,w,h){let r=Math.max(w/img.naturalWidth,h/img.naturalHeight),dw=img.naturalWidth*r,dh=img.naturalHeight*r;return {x:(w-dw)/2,y:(h-dh)/2,w:dw,h:dh}}
+function cover(ctx,img,w,h){if(!img)return;let r=getCover(img,w,h);ctx.drawImage(img,r.x,r.y,r.w,r.h)}
+function demo(ctx,w,h){let g=ctx.createLinearGradient(0,0,w,h);g.addColorStop(0,'#362d5c');g.addColorStop(.5,'#314969');g.addColorStop(1,'#bb8c9f');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);let moon=ctx.createRadialGradient(w*.73,h*.25,2,w*.73,h*.25,w*.3);moon.addColorStop(0,'#e9d5e3d0');moon.addColorStop(.2,'#aeb5f288');moon.addColorStop(1,'#746aa600');ctx.fillStyle=moon;ctx.fillRect(0,0,w,h);ctx.fillStyle='#d6ecffaa';for(let i=0;i<55;i++){let sx=((i*1277+21)%1013)/1013*w,sy=((i*547+79)%977)/977*h,rr=(i%4===0?1.8:0.65)*w/540;ctx.beginPath();ctx.arc(sx,sy,rr,0,Math.PI*2);ctx.fill()}ctx.fillStyle='#0e1b35aa';ctx.beginPath();ctx.moveTo(0,h);for(let x=0;x<=w;x+=w/15)ctx.lineTo(x,h*.78+Math.sin(x*9/w)*h*.07);ctx.lineTo(w,h);ctx.fill();ctx.fillStyle='#101e3d';ctx.beginPath();ctx.ellipse(w*.52,h*.84,w*.17,h*.20,0,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.ellipse(w*.52,h*.60,w*.12,h*.10,0,0,Math.PI*2);ctx.fill();ctx.font=`${w*.04}px Arial`;ctx.fillStyle='#e0dafe';ctx.textAlign='center';ctx.fillText('导入图片后将在这里预览',w/2,h*.92)}
+function timeFor(idx,o){let [hh,mm]=(o.time||'09:02').split(':').map(Number);if(!Number.isFinite(hh)||!Number.isFinite(mm)){hh=9;mm=2}let total=hh*60+mm;if(o.timeMode==='random'){let photo=app.photos[idx],name=photo?photo.file.name:String(idx);let seed=2166136261;for(let c of name){seed^=c.charCodeAt(0);seed=Math.imul(seed,16777619)}total=(seed>>>0)%1440}else if(o.timeMode==='step')total=(total+idx*13)%1440;return `${String(Math.floor(total/60)).padStart(2,'0')}:${String(total%60).padStart(2,'0')}`}
+function fontFor(o,w){if(o.font==='serif')return {font:'200 '+Math.round(w*.40*o.size)+'px "Bodoni MT","Times New Roman",Georgia,serif',ratio:.88};if(o.font==='bold')return {font:'700 '+Math.round(w*.31*o.size)+'px "Arial Narrow","Microsoft YaHei",sans-serif',ratio:.94};return {font:'200 '+Math.round(w*.39*o.size)+'px "Arial Narrow","Helvetica Neue",Arial,sans-serif',ratio:.89}}
+function stretchText(ctx,text,x,baseY,targetWidth,font,color,opacity){ctx.save();ctx.font=font;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=color;ctx.globalAlpha=opacity;ctx.shadowColor=color;ctx.shadowBlur=2;let measured=ctx.measureText(text).width||1,scaleX=targetWidth/measured;ctx.translate(x,baseY);ctx.scale(scaleX,1);ctx.fillText(text,0,0);ctx.restore()}
+function drawClock(ctx,w,h,o,idx){const time=timeFor(idx,o),parts=time.split(':'),font=fontFor(o,w),width=w*font.ratio;let y=h*o.y;let fontMain=font.font;const lineH=w*.35*o.size;ctx.save();
+ if(o.layout==='single')stretchText(ctx,time,w*.5,y+h*.012,width,fontMain,o.color,o.opacity);
+ else if(o.layout==='double'){const t1=parts[0],t2=parts[1];let fs=Math.round(w*.54*o.size);let f=fontMain.replace(/\d+px/,fs+'px');stretchText(ctx,t1,w*.49,y-lineH*.50,w*.72,f,o.color,o.opacity);stretchText(ctx,t2,w*.51,y+lineH*.64,w*.72,f,o.color,o.opacity*.92)}
+ else{let fs=Math.round(w*.52*o.size);let f=fontMain.replace(/\d+px/,fs+'px');stretchText(ctx,parts[0],w*.20,y-h*.045,w*.70,f,o.color,o.opacity*.87);stretchText(ctx,':'+parts[1],w*.76,y+h*.15,w*.85,f,o.color,o.opacity*.9)}
+ if(o.showDate){const date=new Date((o.date||'2026-10-15')+'T12:00:00');let valid=!isNaN(date),days=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];let dateLabel=valid?`${String(date.getMonth()+1).padStart(2,'0')}/${String(date.getDate()).padStart(2,'0')} ${days[date.getDay()]}`:'日期';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=o.color;ctx.globalAlpha=Math.min(1,o.opacity+.16);ctx.font=`500 ${Math.round(w*.026)}px "Microsoft YaHei",Arial,sans-serif`;ctx.fillText(dateLabel,w*.5,o.layout==='double'?y-lineH*1.8:y-h*.125);ctx.globalAlpha=o.opacity*.86;ctx.font=`${Math.round(w*.017)}px Arial,sans-serif`;ctx.fillText('·  让每一刻都值得收藏  ·',w*.5,o.layout==='double'?y-lineH*1.57:y-h*.095)}
+ ctx.restore();if(o.showWidgets)drawWidgets(ctx,w,h,o);
+}
+function drawWidgets(ctx,w,h,o){ctx.save();let cy=h*.835,rad=w*.048;for(let i=0;i<2;i++){let x=w*(.17+i*.155);ctx.fillStyle='#ffffff3d';ctx.strokeStyle='#ffffff38';ctx.lineWidth=w*.001;ctx.beginPath();ctx.arc(x,cy,rad,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle=o.color;ctx.globalAlpha=.89;ctx.textAlign='center';ctx.textBaseline='middle';ctx.font=`600 ${Math.round(w*.023)}px Arial,sans-serif`;ctx.fillText(i===0?(o.weather||'26°'):'☼',x,cy);ctx.font=`${Math.round(w*.012)}px Arial,sans-serif`;ctx.fillText(i===0?'天气':'明朗',x,cy+rad+w*.033)}ctx.restore()}
+function renderMasked(ctx,img,w,h,strokes){if(!strokes||!strokes.length)return;let tmp=document.createElement('canvas');tmp.width=w;tmp.height=h;let cx=tmp.getContext('2d');for(let s of strokes){if(!s.points?.length)continue;cx.save();cx.globalCompositeOperation=s.erase?'destination-out':'source-over';cx.lineCap='round';cx.lineJoin='round';cx.strokeStyle='white';cx.fillStyle='white';cx.lineWidth=Math.max(1,s.brush*w/540);cx.beginPath();let first=s.points[0];cx.moveTo(first[0]*w,first[1]*h);for(let k=1;k<s.points.length;k++)cx.lineTo(s.points[k][0]*w,s.points[k][1]*h);cx.stroke();cx.beginPath();cx.arc(first[0]*w,first[1]*h,Math.max(1,s.brush*w/1080),0,Math.PI*2);cx.fill();cx.restore()}
+ cx.globalCompositeOperation='source-in';cover(cx,img,w,h);ctx.drawImage(tmp,0,0)}
+function render(canvas,item,idx,preview=false){const ctx=canvas.getContext('2d',{alpha:false}),w=canvas.width,h=canvas.height,o=opts();ctx.clearRect(0,0,w,h);if(item?.img)cover(ctx,item.img,w,h);else demo(ctx,w,h);drawClock(ctx,w,h,o,idx);
+ if(item?.img){if((o.depth==='front'||o.depth==='auto')&&item.foreground?.img){cover(ctx,item.foreground.img,w,h)}else if(o.depth==='paint'&&item.strokes?.length)renderMasked(ctx,item.img,w,h,item.strokes)}
+ if(preview&&o.depth==='paint'&&item?.strokes?.length){ctx.save();ctx.globalAlpha=.50;ctx.strokeStyle='#6affef';ctx.lineCap='round';ctx.lineJoin='round';for(let s of item.strokes){if(s.erase)continue;ctx.lineWidth=Math.max(1,s.brush*w/540);ctx.beginPath();s.points.forEach(([x,y],i)=>i?ctx.lineTo(x*w,y*h):ctx.moveTo(x*w,y*h));ctx.stroke()}ctx.restore()}
+}
+function refresh(){let item=app.photos[app.active];$('totalBadge').textContent=app.photos.length+' 张';$('countText').textContent=app.photos.length+' 张';$('frontCount').textContent=app.photos.filter(x=>x.foreground?.img).length+' / '+app.photos.length;$('previewLabel').textContent=item?`${app.active+1} / ${app.photos.length} · ${item.file.name}`:'演示样式 · 待导入素材';$('clockSize').dispatchEvent(new Event('silent'));$('sizeValue').textContent=$('clockSize').value+'%';$('positionValue').textContent=$('clockY').value+'%';$('opacityValue').textContent=$('opacity').value+'%';$('brushValue').textContent=$('brushSize').value;
+ let list=$('list');list.replaceChildren();if(!app.photos.length){list.innerHTML='<div class="notice">尚未导入图片。导入图片后，点击任意缩略图即可预览，还可以单独制作人物遮挡区域。</div>'}else for(let i=0;i<app.photos.length;i++){let p=app.photos[i],d=document.createElement('div');d.className='photo'+(i===app.active?' active':'');let im=document.createElement('img');im.src=p.url;im.alt='缩略图';let info=document.createElement('div');info.className='info';let name=document.createElement('div');name.className='name';name.textContent=p.file.name;let meta=document.createElement('div');meta.className='meta';meta.textContent=bytesLabel(p.file.size)+(p.aiStatus==='error'?' · ⚠ AI失败':p.foreground?.img?' · ✓'+(p.aiStatus==='done'?'AI':'前景'):p.strokes?.length?' · ✓涂抹':'');info.append(name,meta);let rm=document.createElement('button');rm.className='kill';rm.title='移除';rm.textContent='×';rm.onclick=e=>{e.stopPropagation();dropPhoto(i)};d.append(im,info,rm);d.onclick=()=>{app.active=i;refresh()};list.appendChild(d)}schedule()}
+function updateDepth(){let v=$('depth').value;$('frontPanel').style.display=v==='front'?'block':'none';$('paintPanel').style.display=v==='paint'?'grid':'none';$('paintWatermark').style.display=v==='paint'?'block':'none';el.wrapper.classList.toggle('paint',v==='paint');schedule()}
+function dropPhoto(i){let item=app.photos[i];if(!item)return;URL.revokeObjectURL(item.url);if(item.foreground?.url)URL.revokeObjectURL(item.foreground.url);app.photos.splice(i,1);app.active=Math.min(app.active,Math.max(0,app.photos.length-1));refresh()}
+async function fileImage(file){let url=URL.createObjectURL(file),img=new Image();img.src=url;try{await img.decode();return {url,img}}catch(e){URL.revokeObjectURL(url);throw Error(file.name+'：图片无法解码')}}
+async function addPhotos(files){const selected=Array.from(files).filter(f=>f.type.startsWith('image/'));if(!selected.length){updateStatus('没有可用图片');return}let failed=0;for(let file of selected){try{let loaded=await fileImage(file);app.photos.push({file,...loaded,strokes:[],foreground:null,aiStatus:'pending'})}catch(e){failed++}}if(app.photos.length===selected.length&&app.photos.length>0)app.active=0;refresh();updateStatus(`已导入 ${selected.length-failed} 张${failed?`，失败 ${failed} 张`:''}`)}
+async function addFronts(files){let matched=0;for(let f of Array.from(files).filter(f=>f.type.startsWith('image/'))){try{let loaded=await fileImage(f),key=imageName(f.name),same=app.photos.filter(p=>imageName(p.file.name)===key);for(let p of same){if(p.foreground?.url)URL.revokeObjectURL(p.foreground.url);p.foreground={file:f,...loaded};p.aiStatus='manual';matched++}if(!same.length)URL.revokeObjectURL(loaded.url)}catch(e){}}refresh();updateStatus('已匹配 '+matched+' 张前景透明图')}
+function updateStatus(str,n,total){$('status').textContent=str;if(n!==undefined){$('statusCount').textContent=n+' / '+total;$('progressBar').style.width=(total?Math.round(n/total*100):0)+'%'}}
+async function downloadBlob(blob,name){
+ if(window.AndroidStorage){
+   const id=AndroidStorage.startFile(name,blob.type||'application/octet-stream');
+   try{
+     const CHUNK=256*1024;
+     for(let at=0;at<blob.size;at+=CHUNK){
+       const sl=blob.slice(at,at+CHUNK);
+       const data=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result.split(',')[1]);r.onerror=()=>reject(new Error('读取导出文件失败'));r.readAsDataURL(sl)});
+       AndroidStorage.appendChunk(id,data);
+     }
+     AndroidStorage.finishFile(id);
+   }catch(e){AndroidStorage.cancelFile(id);throw e}
+   return;
+ }
+ let href=URL.createObjectURL(blob),a=document.createElement('a');a.href=href;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),45000)
+}
+function safeName(s){return s.replace(/\.[^.]+$/,'').replace(/[\\/:*?"<>|]/g,'_').slice(0,70)||'wallpaper'}
+function getFilename(p,i){let o=opts(),ext=$('outputType').value==='image/png'?'png':'jpg';return `${String(i+1).padStart(3,'0')}_${safeName(p.file.name)}_景深锁屏.${ext}`}
+function outputSize(){let a=$('resolution').value.split('x').map(Number);return a[0]>0&&a[1]>0?a:[1080,1920]}
+async function makeBlob(p,i){let [w,h]=outputSize(),canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;render(canvas,p,i);let type=$('outputType').value;const blob=await new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('图片导出失败，尝试降低分辨率')),type,.93));canvas.width=canvas.height=1;return blob}
+let crcTable=null;function crc32(b){if(!crcTable){crcTable=new Uint32Array(256);for(let i=0;i<256;i++){let c=i;for(let j=0;j<8;j++)c=(c&1)?0xedb88320^(c>>>1):c>>>1;crcTable[i]=c>>>0}}let c=0xffffffff;for(let i=0;i<b.length;i++)c=crcTable[(c^b[i])&255]^(c>>>8);return(c^0xffffffff)>>>0}
+function header(size){return new DataView(new ArrayBuffer(size))}function writeBytes(view,at,bytes){new Uint8Array(view.buffer).set(bytes,at)}
+async function zipStore(entries){let chunks=[],cent=[],cursor=0,encoder=new TextEncoder(),num=0;for(let e of entries){let data=new Uint8Array(await e.blob.arrayBuffer()),name=encoder.encode(e.name),crc=crc32(data),h=header(30+name.length);let dv=h;dv.setUint32(0,0x04034b50,true);dv.setUint16(4,20,true);dv.setUint16(6,0x0800,true);dv.setUint16(8,0,true);dv.setUint32(14,crc,true);dv.setUint32(18,data.length,true);dv.setUint32(22,data.length,true);dv.setUint16(26,name.length,true);writeBytes(dv,30,name);chunks.push(dv.buffer,data);let cen=header(46+name.length);cen.setUint32(0,0x02014b50,true);cen.setUint16(4,20,true);cen.setUint16(6,20,true);cen.setUint16(8,0x0800,true);cen.setUint32(16,crc,true);cen.setUint32(20,data.length,true);cen.setUint32(24,data.length,true);cen.setUint16(28,name.length,true);cen.setUint32(42,cursor,true);writeBytes(cen,46,name);cent.push(cen.buffer);cursor+=h.byteLength+data.length;num++}let centralSize=cent.reduce((a,b)=>a+b.byteLength,0),end=header(22);end.setUint32(0,0x06054b50,true);end.setUint16(8,num,true);end.setUint16(10,num,true);end.setUint32(12,centralSize,true);end.setUint32(16,cursor,true);return new Blob([...chunks,...cent,end.buffer],{type:'application/zip'})}
+async function exportOne(){if(app.busy)return;let p=app.photos[app.active];if(!p){alert('请先导入至少一张图片');return}app.busy=true;setBusy(true);try{updateStatus('正在渲染当前图片',0,1);let blob=await makeBlob(p,app.active);await downloadBlob(blob,getFilename(p,app.active));updateStatus('单张导出完成',1,1)}catch(e){updateStatus(e.message);alert(e.message)}finally{app.busy=false;setBusy(false)}}
+async function exportAll(){if(app.busy)return;if(!app.photos.length){alert('请先导入图片素材');return}app.busy=true;setBusy(true);try{const entries=[];const count=app.photos.length;updateStatus('正在批量渲染',0,count);for(let i=0;i<count;i++){let p=app.photos[i];let blob=await makeBlob(p,i);entries.push({blob,name:getFilename(p,i)});updateStatus('图片生成中',i+1,count);await new Promise(r=>setTimeout(r,0))}updateStatus('正在打包 ZIP',count,count);let zip=await zipStore(entries);await downloadBlob(zip,'星辰壁纸工作台_批量锁屏壁纸_'+count+'张.zip');updateStatus(`完成！已打包 ${count} 张 (${bytesLabel(zip.size)})`,count,count)}catch(e){updateStatus('导出错误：'+e.message);alert('导出失败：'+e.message+'\n建议调低分辨率，或一次处理更少的图片。')}finally{app.busy=false;setBusy(false)}}
+function setBusy(b){$('downloadOne').disabled=b;$('downloadAll').disabled=b;$('downloadAll').textContent=b?'打包中…':'↓ 批量 ZIP'}
+function normalizedPointer(ev){let r=el.canvas.getBoundingClientRect();return [Math.min(1,Math.max(0,(ev.clientX-r.left)/r.width)),Math.min(1,Math.max(0,(ev.clientY-r.top)/r.height))]}
+el.canvas.addEventListener('pointerdown',ev=>{if($('depth').value!=='paint'||!app.photos.length||app.busy)return;ev.preventDefault();el.canvas.setPointerCapture(ev.pointerId);app.painting=true;let item=app.photos[app.active];item.strokes.push({points:[normalizedPointer(ev)],brush:+$('brushSize').value,erase:app.paintErase});schedule()});
+el.canvas.addEventListener('pointermove',ev=>{if(!app.painting||$('depth').value!=='paint')return;let p=app.photos[app.active];if(!p)return;p.strokes[p.strokes.length-1].points.push(normalizedPointer(ev));schedule()});
+for(let name of ['pointerup','pointercancel','lostpointercapture'])el.canvas.addEventListener(name,()=>{if(app.painting){app.painting=false;refresh()}});
+for(let id of controls){$(id).addEventListener('input',()=>{if(id==='theme')$('color').value=themeColors[$('theme').value];if(id==='depth')updateDepth();$('sizeValue').textContent=$('clockSize').value+'%';$('positionValue').textContent=$('clockY').value+'%';$('opacityValue').textContent=$('opacity').value+'%';$('brushValue').textContent=$('brushSize').value;$('weatherField').style.display=$('showWidgets').checked?'grid':'none';schedule()})}
+$('layouts').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{app.layout=b.dataset.layout;$('layouts').querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));schedule()}));
+$('addPhotos').onclick=e=>{e.stopPropagation();$('fileInput').click()};$('dropArea').onclick=e=>{if(e.target.tagName!=='BUTTON')$('fileInput').click()};$('fileInput').addEventListener('change',async e=>{await addPhotos(e.target.files);e.target.value=''});
+$('addForegrounds').onclick=()=>$('frontInput').click();$('frontInput').addEventListener('change',async e=>{await addFronts(e.target.files);e.target.value=''});
+const drop=$('dropArea');drop.addEventListener('dragover',ev=>{ev.preventDefault();drop.classList.add('over')});drop.addEventListener('dragleave',()=>drop.classList.remove('over'));drop.addEventListener('drop',async ev=>{ev.preventDefault();drop.classList.remove('over');await addPhotos(ev.dataTransfer.files)});
+$('eraseBtn').onclick=()=>{app.paintErase=!app.paintErase;$('eraseBtn').textContent='橡皮擦：'+(app.paintErase?'开':'关');$('eraseBtn').style.borderColor=app.paintErase?'#74ead9':''};
+$('clearMask').onclick=()=>{if(app.photos[app.active]){app.photos[app.active].strokes=[];refresh()}};
+$('copyMask').onclick=()=>{let current=app.photos[app.active];if(!current){alert('请先导入图片');return}if(!confirm('将当前人物涂抹区域覆盖到其他所有图片？仅适用于人物位置和构图相近的图片。'))return;for(let p of app.photos)p.strokes=JSON.parse(JSON.stringify(current.strokes));refresh()};
+$('clearAll').onclick=()=>{if(app.aiBusy){alert('请先停止 AI 批量任务');return}if(!app.photos.length)return;if(!confirm(`确定清空 ${app.photos.length} 张图片吗？`))return;for(let p of app.photos){URL.revokeObjectURL(p.url);if(p.foreground?.url)URL.revokeObjectURL(p.foreground.url)}app.photos=[];app.active=0;refresh();updateStatus('队列已清空',0,0)};
+// Android On-device bridge: local model status + inference.
+let aiAvailable=false;const pendingAI=new Map();let aiSeq=0;
+function checkAI(){
+ const tag=$('aiStatus');
+ if(!window.AndroidAI){aiAvailable=false;tag.textContent='请从安卓 APP 打开（非浏览器HTML）';tag.className='tag bad';return false}
+ const status=AndroidAI.modelStatus();aiAvailable=status==='ready';
+ tag.className='tag '+(aiAvailable?'ok':'bad');tag.textContent=aiAvailable?'● 模型已就绪 · 本地离线运行':'● 未安装模型 · 请选择下载或导入';
+ return aiAvailable;
+}
+window.onAndroidModelStatus=function(message,ready){
+ $('modelHelp').textContent=message;
+ if(ready)checkAI();else if(message.toLowerCase().includes('失败')){$('aiStatus').className='tag bad';$('aiStatus').textContent='模型未就绪'}
+};
+$('modelDownload').onclick=()=>{
+ if(!window.AndroidAI){alert('请安装安卓版使用');return}
+ if(!confirm('下载约176MB的ISNet Anime模型？建议使用Wi-Fi。仅下载一次，之后可以离线使用。'))return;
+ AndroidAI.downloadModel();$('modelHelp').textContent='正在开始下载模型，请不要关闭 APP…';
+};
+$('modelImport').onclick=()=>{if(!window.AndroidAI){alert('请安装安卓版使用');return}AndroidAI.importModel()};
+window.onAndroidAiResult=function(id,success,value){const item=pendingAI.get(id);if(!item)return;pendingAI.delete(id);if(success)item.resolve('data:image/png;base64,'+item.chunks.join(''));else item.reject(new Error(value||'AI执行失败'))};
+window.onAndroidAiChunk=function(id,chunk){let item=pendingAI.get(id);if(item)item.chunks.push(chunk)};
+function jsAndroidSegment(dataUri){return new Promise((resolve,reject)=>{let id=String(++aiSeq);pendingAI.set(id,{resolve,reject,chunks:[]});try{AndroidAI.segment(id,dataUri)}catch(e){pendingAI.delete(id);reject(e)}})}
+async function doAI(p){
+ if(!checkAI())throw Error('本地 AI 环境不可用：请先下载或导入模型');
+ // Send a bounded image to Android; the ONNX model itself runs entirely locally.
+ const maxEdge=1600,ratio=Math.min(1,maxEdge/Math.max(p.img.naturalWidth,p.img.naturalHeight));
+ const sw=Math.round(p.img.naturalWidth*ratio),sh=Math.round(p.img.naturalHeight*ratio);
+ const c=document.createElement('canvas');c.width=sw;c.height=sh;c.getContext('2d').drawImage(p.img,0,0,sw,sh);
+ const input=c.toDataURL('image/jpeg',0.88);c.width=c.height=1;
+ const uri=await jsAndroidSegment(input);
+ const blob=await(await fetch(uri)).blob();
+ const file=new File([blob],safeName(p.file.name)+'_AI前景.png',{type:'image/png'});
+ const loaded=await fileImage(file);
+ if(p.foreground?.url)URL.revokeObjectURL(p.foreground.url);
+ p.foreground={file,...loaded};p.aiStatus='done';
+}
+function aiUI(b){$('aiOne').disabled=b;$('aiAll').disabled=b;$('aiCancel').disabled=!b;setBusy(b)}
+async function startAI(all){
+  if(app.aiBusy||app.busy)return;
+  if(!app.photos.length){alert('请先点击「＋ 导入原图」添加素材');return}
+  app.aiBusy=true;app.aiCancel=false;aiUI(true);
+  const jobs=all?app.photos.slice():[app.photos[app.active]];
+  let succeed=0,failed=0;
+  try{
+    for(let i=0;i<jobs.length;i++){
+      if(app.aiCancel)break;
+      const p=jobs[i];if(!app.photos.includes(p))continue;
+      $('aiProgress').textContent=`AI 正在处理 ${i+1}/${jobs.length}：${p.file.name.slice(0,22)}`;
+      updateStatus('AI抠图 '+(i+1)+'/'+jobs.length,i,jobs.length);
+      try{await doAI(p);succeed++;}catch(e){
+        if(app.aiCancel)break;
+        p.aiStatus='error';failed++;$('aiProgress').textContent='⚠ '+p.file.name+'：'+e.message;
+        if(e.message.includes('本地 AI 环境'))break;
+      }
+      refresh();await new Promise(r=>setTimeout(r,30));
+    }
+    if(succeed){$('depth').value='auto';updateDepth();}
+    updateStatus('AI处理完成 '+succeed+' 张'+(failed?'，失败 '+failed+' 张':'')+(app.aiCancel?'（已停止）':''),succeed+failed,jobs.length);
+    $('aiProgress').textContent=`成功 ${succeed} · 失败 ${failed}`+(app.aiCancel?' · 用户停止':'');
+    await checkAI();refresh();
+  }finally{app.aiController=null;app.aiBusy=false;aiUI(false)}
+}
+$('aiOne').onclick=()=>startAI(false);
+$('aiAll').onclick=()=>startAI(true);
+$('aiCheck').onclick=checkAI;
+$('aiCancel').onclick=()=>{app.aiCancel=true;$('aiProgress').textContent='当前AI图片处理完成后停止…'};
+setTimeout(checkAI,100);
+$('downloadOne').onclick=exportOne;$('downloadAll').onclick=exportAll;updateDepth();refresh();
+$('dockImport').onclick=()=>$('fileInput').click();
+$('dockPreview').onclick=()=>document.querySelector('.mid').scrollIntoView({block:'start',behavior:'smooth'});
+$('dockStyle').onclick=()=>$('layouts').scrollIntoView({block:'center',behavior:'smooth'});
+$('dockAI').onclick=()=>$('aiStatus').scrollIntoView({block:'center',behavior:'smooth'});
+$('dockExport').onclick=()=>$('downloadAll').scrollIntoView({block:'center',behavior:'smooth'});
+
+})();
+</script>
+</body>
+</html>

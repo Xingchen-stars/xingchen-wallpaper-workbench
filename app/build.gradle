@@ -1,0 +1,25 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.xingchen.wallpaper'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.xingchen.wallpaper'
+        minSdk 29
+        targetSdk 35
+        versionCode 4
+        versionName '3.0.1-beta'
+    }
+    buildTypes {
+        release { minifyEnabled false }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    packaging { jniLibs { useLegacyPackaging = false } }
+}
+
+dependencies {
+    implementation 'com.microsoft.onnxruntime:onnxruntime-android:1.23.2'
+}
