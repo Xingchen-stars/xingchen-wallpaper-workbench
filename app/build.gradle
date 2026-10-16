@@ -7,8 +7,8 @@ android {
         applicationId 'com.xingchen.wallpaper'
         minSdk 29
         targetSdk 35
-        versionCode 4
-        versionName '3.0.1-beta'
+        versionCode 5
+        versionName '3.0.2-beta'
     }
     buildTypes {
         release { minifyEnabled false }

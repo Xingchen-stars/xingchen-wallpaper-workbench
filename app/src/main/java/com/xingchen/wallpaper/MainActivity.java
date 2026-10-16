@@ -1,6 +1,7 @@
 package com.xingchen.wallpaper;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,7 +30,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -70,8 +73,20 @@ public class MainActivity extends Activity {
             @Override public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> callback, FileChooserParams params) {
                 if (chooserCallback != null) chooserCallback.onReceiveValue(null);
                 chooserCallback = callback;
-                try { startActivityForResult(params.createIntent(), CHOOSE_IMAGES); return true; }
-                catch (Exception e) { chooserCallback = null; callback.onReceiveValue(null); show("无法打开文件选择器："+e.getMessage()); return false; }
+                try {
+                    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                    intent.addCategory(Intent.CATEGORY_OPENABLE);
+                    intent.setType("image/*");
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, params.getMode() == FileChooserParams.MODE_OPEN_MULTIPLE);
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                    startActivityForResult(Intent.createChooser(intent, "选择图片"), CHOOSE_IMAGES);
+                    return true;
+                } catch (Exception e) {
+                    chooserCallback = null;
+                    callback.onReceiveValue(null);
+                    show("无法打开文件选择器：" + e.getMessage());
+                    return true;
+                }
             }
         });
         web.addJavascriptInterface(new AiBridge(), "AndroidAI");
@@ -94,7 +109,7 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CHOOSE_IMAGES) {
             if (chooserCallback != null) {
-                chooserCallback.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, data));
+                chooserCallback.onReceiveValue(parseChosenImages(resultCode, data));
                 chooserCallback = null;
             }
             return;
@@ -114,6 +129,27 @@ public class MainActivity extends Activity {
                 } catch(Exception e) { tmp.delete(); sendModel("模型导入失败："+e.getMessage(),false); }
             });
         }
+    }
+    private Uri[] parseChosenImages(int resultCode, Intent data) {
+        if (resultCode != RESULT_OK || data == null) return null;
+        Set<Uri> selected = new LinkedHashSet<>();
+        ClipData clip = data.getClipData();
+        if (clip != null) {
+            for (int i = 0; i < clip.getItemCount(); i++) {
+                Uri uri = clip.getItemAt(i).getUri();
+                if (uri != null) selected.add(uri);
+            }
+        }
+        if (data.getData() != null) selected.add(data.getData());
+        if (selected.isEmpty()) return null;
+        int flags = data.getFlags() & Intent.FLAG_GRANT_READ_URI_PERMISSION;
+        if (flags != 0) {
+            for (Uri uri : selected) {
+                try { getContentResolver().takePersistableUriPermission(uri, flags); }
+                catch (SecurityException ignored) { }
+            }
+        }
+        return selected.toArray(new Uri[0]);
     }
     private static void replaceFile(File tmp, File target) throws Exception {
         if(target.exists() && !target.delete()) throw new IllegalStateException("无法替换旧模型");
